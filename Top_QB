@@ -1,0 +1,24 @@
+--DELETE FROM NFL_Stats
+--WHERE LEFT(game_id, 4) = '2022';
+
+--CREATE TABLE Top_QB (
+--    player_id NVARCHAR(50) PRIMARY KEY,
+--    player NVARCHAR(100), -- New column for player name
+--    total_pass_cmp INT,
+--    total_pass_att INT,
+--    total_pass_yds INT,
+--    total_pass_td INT,
+--    avg_pass_rating DECIMAL(5, 2)
+--);
+
+--INSERT INTO Top_QB (player_id, player, total_pass_cmp, total_pass_att, total_pass_yds, total_pass_td, avg_pass_rating)
+--SELECT player_id,
+--       player, -- Insert the player name
+--       SUM(pass_cmp) AS total_pass_cmp,
+--       SUM(pass_att) AS total_pass_att,
+--       SUM(pass_yds) AS total_pass_yds,
+--       SUM(pass_td) AS total_pass_td,
+--       AVG(pass_rating) AS avg_pass_rating
+--FROM NFL_Stats
+--WHERE [position] = 'QB'
+--GROUP BY player_id, player;
