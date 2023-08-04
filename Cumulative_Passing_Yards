@@ -1,0 +1,14 @@
+--CREATE TABLE Team_Cumulative_Passing_Yards (
+--    year INT,
+--    team NVARCHAR(50),
+--    cumulative_yards INT,
+--    PRIMARY KEY (year, team)
+--);
+
+--INSERT INTO Team_Cumulative_Passing_Yards (year, team, cumulative_yards)
+--SELECT 
+--    YEAR(game_date) AS year,
+--    team,
+--    SUM(pass_yds) AS cumulative_yards
+--FROM NFL_Stats
+--GROUP BY YEAR(game_date), team;
