@@ -1,0 +1,25 @@
+--CREATE TABLE Passing_Volume (
+--    year INT,
+--    rank INT,
+--    player_id NVARCHAR(50),
+--    player NVARCHAR(100),
+--	Position NVARCHAR(100),
+--    pass_attempts INT,
+--    passing_yards INT,
+--    PRIMARY KEY (year, rank)
+--);
+
+--INSERT INTO Passing_Volume (year, rank, player_id, player, pass_attempts, passing_yards)
+--SELECT 
+--    YEAR(game_date) AS year,
+--    ROW_NUMBER() OVER (PARTITION BY YEAR(game_date) ORDER BY SUM(pass_att) DESC) AS rank,
+--    player_id,
+--    player,
+--    SUM(pass_att) AS pass_attempts,
+--    SUM(pass_yds) AS passing_yards
+--FROM NFL_Stats
+--WHERE position = 'QB'
+--GROUP BY YEAR(game_date), player_id, player;
+
+--ALTER TABLE Passing_Volume
+--DROP COLUMN Position
