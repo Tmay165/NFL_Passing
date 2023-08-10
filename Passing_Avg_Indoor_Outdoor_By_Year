@@ -1,0 +1,38 @@
+CREATE TABLE Passing_Avg_Indoor_Outdoor_By_Year (
+    year INT,
+    game_type NVARCHAR(20),
+    avg_pass_attempts DECIMAL(8, 2),
+    avg_pass_completions DECIMAL(8, 2),
+    avg_pass_yards DECIMAL(10, 2),
+    avg_pass_touchdowns DECIMAL(5, 2),
+    PRIMARY KEY (year, game_type)
+);
+
+INSERT INTO Passing_Avg_Indoor_Outdoor_By_Year (year, game_type, avg_pass_attempts, avg_pass_completions, avg_pass_yards, avg_pass_touchdowns)
+SELECT 
+    subquery.year,
+    subquery.game_type,
+    AVG(subquery.pass_att) AS avg_pass_attempts,
+    AVG(subquery.pass_cmp) AS avg_pass_completions,
+    AVG(subquery.pass_yds) AS avg_pass_yards,
+    AVG(subquery.pass_td) AS avg_pass_touchdowns
+FROM (
+    SELECT 
+        CAST(LEFT(game_id, 4) AS INT) AS year,
+        CASE
+            WHEN ROOF = 'retractable roof (closed)' THEN 'Indoor'
+            WHEN ROOF = 'outdoor' THEN 'Outdoor'
+            ELSE 'Other'
+        END AS game_type,
+        pass_att,
+        pass_cmp,
+        pass_yds,
+        pass_td
+    FROM NFL_Stats
+    WHERE position = 'QB'
+) AS subquery
+GROUP BY subquery.year, subquery.game_type;
+
+UPDATE Passing_Avg_Indoor_Outdoor_By_Year
+SET game_type = 'Outdoor'
+WHERE game_type = 'Other';
