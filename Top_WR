@@ -1,0 +1,24 @@
+CREATE TABLE Top_WR (
+    year INT,
+    player_id NVARCHAR(50),
+    player NVARCHAR(100),  
+    targets INT,
+    Rec INT,
+    Rec_yds INT,
+    Rec_td INT,
+    PRIMARY KEY (year, player_id)
+);
+
+
+INSERT INTO Top_WR (year, player_id, player, targets, Rec, Rec_yds, Rec_td)
+SELECT 
+    YEAR(game_date) AS year,
+    player_id,
+    player,  
+    SUM(targets) AS targets,
+    SUM(Rec) AS Rec,
+    SUM(Rec_yds) AS Rec_yds,
+    SUM(Rec_td) AS Rec_td
+FROM NFL_Stats
+WHERE position = 'WR'
+GROUP BY YEAR(game_date), player_id, player;
